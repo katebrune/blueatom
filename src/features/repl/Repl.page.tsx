@@ -1,10 +1,4 @@
-import {
-  FunctionComponent,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { FunctionComponent, useCallback, useEffect, useState } from "react";
 import plantumlEncoder from "plantuml-encoder";
 
 import { Editor } from "./Editor";
@@ -267,7 +261,7 @@ export const ReplPage: FunctionComponent = () => {
                       Editor tab
                     </p>
                     <code className="my-2 w-full text-sm sm:text-base inline-flex flex-col text-left items-start bg-gray-800 text-white rounded p-4 pl-6">
-                      <span className="whitespace-pre-line text-sm">{`Me->bluatom:Hi!`}</span>
+                      <span className="whitespace-pre-line text-sm">{`Me->blueatom: Hi!`}</span>
                       <span className="whitespace-pre-line text-sm">{`blueatom->Me: Hello!`}</span>
                     </code>
                   </li>
@@ -277,7 +271,7 @@ export const ReplPage: FunctionComponent = () => {
                     </p>
                     <code className="my-2 w-full text-sm sm:text-base inline-flex flex-col text-left items-start bg-gray-800 text-white rounded p-4 pl-6">
                       <span className="whitespace-pre-line text-sm text-blue-300">{`@[my-first-layer]`}</span>
-                      <span className="whitespace-pre-line text-sm">{`Me->bluatom:Hi!`}</span>
+                      <span className="whitespace-pre-line text-sm">{`Me->blueatom: Hi!`}</span>
                       <span className="whitespace-pre-line text-sm text-blue-300">{`@[my-second-layer]`}</span>
                       <span className="whitespace-pre-line text-sm">{`blueatom->Me: Hello!`}</span>
                     </code>
