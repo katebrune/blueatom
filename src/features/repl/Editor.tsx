@@ -23,7 +23,7 @@ export const Editor = ({
       diagramInput,
       "@enduml",
     ].join("\n");
-    onChange(withImports);
+    onChange(withImports, diagramInput);
   }, [diagramInput, useCFour, useMonochrome]);
   return (
     <>

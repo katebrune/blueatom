@@ -1,4 +1,10 @@
-import { FunctionComponent, useCallback, useEffect, useState } from "react";
+import {
+  FunctionComponent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import plantumlEncoder from "plantuml-encoder";
 
 import { Editor } from "./Editor";
@@ -13,6 +19,7 @@ import {
 
 export const ReplPage: FunctionComponent = () => {
   const [diagramInput, setDiagramInput] = useState("");
+  const [rawInput, setRawInput] = useState("");
   const [svg, setSvg] = useState<string | null>(null);
   const [layers, setLayers] = useState<any[]>([]);
   const [disabledLayers, setDisabledLayers] = useState<any[]>([]);
@@ -104,24 +111,32 @@ export const ReplPage: FunctionComponent = () => {
     return lines.join("\n");
   }
 
+  console.log(diagramInput);
+
   return (
     <>
-      <div className="flex h-full">
-        <div className="w-1/2">
+      <div className="flex h-full flex-col md:flex-row">
+        <div className="w-full h-1/2 md:w-1/2 md:h-full">
           <Editor
-            onChange={(v: any) => {
+            onChange={(v: any, rawInput: any) => {
               setDiagramInput(v);
+              setRawInput(rawInput);
             }}
             onBlur={() => {
               handleRefresh();
             }}
           />
         </div>
-        <div className="w-1/2 overflow-x-auto overflow-y-auto">
-          <div className="bg-gray-50 h-14 flex items-center justify-end px-4 gap-2">
+        <div className="w-full h-1/2 md:w-1/2 md:h-full flex flex-col">
+          <div className="bg-gray-50 h-14 flex items-center justify-end px-4 gap-2 shrink-0">
             <button
+              disabled={rawInput === ""}
               onClick={handleRefresh}
-              className="text-white bg-blue-600 hover:bg-primary-800 hover:ring-4 focus:outline-none hover:ring-primary-300 font-medium  text-sm px-4 py-2.5 text-center inline-flex items-center gap-2"
+              className={
+                rawInput === ""
+                  ? "text-white bg-gray-300 font-medium  text-sm px-4 py-2.5 text-center inline-flex items-center gap-2"
+                  : "text-white bg-blue-600 hover:bg-primary-800 hover:ring-4 focus:outline-none hover:ring-primary-300 font-medium  text-sm px-4 py-2.5 text-center inline-flex items-center gap-2"
+              }
             >
               Refresh
               <svg
@@ -232,8 +247,47 @@ export const ReplPage: FunctionComponent = () => {
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
-          {svg !== null && (
-            <div className="w-full" dangerouslySetInnerHTML={{ __html: svg }} />
+          {svg !== null && rawInput !== "" && (
+            <div
+              className="w-full grow overflow-x-auto overflow-y-auto"
+              dangerouslySetInnerHTML={{ __html: svg }}
+            />
+          )}
+          {rawInput === "" && (
+            <div className="grow overflow-x-auto overflow-y-auto flex flex-col items-center md:justify-center rounded m-4 bg-blue-300 border-blue-600 border-4">
+              <div className="mx-w-md xs:max-w-sm md:max-w-xs lg:max-w-sm flex flex-col items-center justify-center py-4 md:py-0">
+                <h3 className="text-2xl font-semibold">
+                  👋 Welcome to blueatom!
+                </h3>
+                <p className="mb-4">Here's some tips to help you get started</p>
+                <ol>
+                  <li>
+                    <p className="font-noraml">
+                      1. Create a diagram using PlantUML syntax in the Text
+                      Editor tab
+                    </p>
+                    <code className="my-2 w-full text-sm sm:text-base inline-flex flex-col text-left items-start bg-gray-800 text-white rounded p-4 pl-6">
+                      <span className="whitespace-pre-line text-sm">{`Me->bluatom:Hi!`}</span>
+                      <span className="whitespace-pre-line text-sm">{`blueatom->Me: Hello!`}</span>
+                    </code>
+                  </li>
+                  <li>
+                    <p className="font-normal">
+                      2. Add layers to your document using blueatom's tag syntax
+                    </p>
+                    <code className="my-2 w-full text-sm sm:text-base inline-flex flex-col text-left items-start bg-gray-800 text-white rounded p-4 pl-6">
+                      <span className="whitespace-pre-line text-sm text-blue-300">{`@[my-first-layer]`}</span>
+                      <span className="whitespace-pre-line text-sm">{`Me->bluatom:Hi!`}</span>
+                      <span className="whitespace-pre-line text-sm text-blue-300">{`@[my-second-layer]`}</span>
+                      <span className="whitespace-pre-line text-sm">{`blueatom->Me: Hello!`}</span>
+                    </code>
+                  </li>
+                  <li className="font-normal">
+                    3. Explore additional PlantUML libraries in the Settings tab
+                  </li>
+                </ol>
+              </div>
+            </div>
           )}
         </div>
       </div>
