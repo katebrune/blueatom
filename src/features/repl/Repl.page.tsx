@@ -1,6 +1,5 @@
 import { FunctionComponent, useEffect, useState } from "react";
 import plantumlEncoder from "plantuml-encoder";
-// import ReactDOMServer from "react-dom/server";
 
 import { Editor } from "./Editor";
 import {
@@ -10,7 +9,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/shadcn-components/ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 
 export const ReplPage: FunctionComponent = () => {
   const [diagramInput, setDiagramInput] = useState("");
