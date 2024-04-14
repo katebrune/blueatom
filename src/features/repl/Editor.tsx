@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-export const Editor = ({ onChange }: { onChange: any }) => {
+export const Editor = ({
+  onChange,
+  onBlur,
+}: {
+  onChange: any;
+  onBlur: any;
+}) => {
   const [activeEditor, setActiveEditor] = useState("text");
   const [diagramInput, setDiagramInput] = useState("");
   const [useCFour, setUseCFour] = useState(false);
@@ -80,6 +86,7 @@ export const Editor = ({ onChange }: { onChange: any }) => {
               className="font-mono grow block p-2.5 w-full text-sm font-medium tracking-wide text-gray-900 bg-gray-50 border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
               value={diagramInput}
               onChange={(e) => setDiagramInput(e.target.value)}
+              onBlur={onBlur}
             />
           )}
           {activeEditor === "visual" && <div>Visual</div>}
