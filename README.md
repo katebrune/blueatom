@@ -43,3 +43,8 @@ Rel(api, mynewservice, "")
 ## Support
 
 For support, create a new Issue.
+
+
+## License
+
+[GNU GPLv3](https://choosealicense.com/licenses/gpl-3.0/)
