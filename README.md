@@ -13,6 +13,7 @@ Check it out at [blueatom.dev](https://blueatom.dev)
 ## Usage/Examples
 
 ### Sequence diagram with layers
+
 ```plantuml
 @[my-first-layer]
 Me->blueatom: Hello!
@@ -21,7 +22,9 @@ blueatom->Me: Hi!
 ```
 
 ### C4 diagram with layers
+
 Enable C4 library in the Settings tab first.
+
 ```plantuml
 Person(user, "User")
 SystemBoundary(mysystem, "My System") {
@@ -39,12 +42,37 @@ Rel(api, db, "")
 Rel(api, mynewservice, "")
 ```
 
-
 ## Support
 
 For support, create a new Issue.
 
-
 ## License
 
 [GNU GPLv3](https://choosealicense.com/licenses/gpl-3.0/)
+
+## Running locally
+
+1. Start plantuml server
+
+```bash
+docker compose up -d
+```
+
+2. Configure env vars
+
+```bash
+echo "VITE_BLUEATOM_API_URL=http://localhost:8080" > .env
+```
+
+3. Install dependencies
+
+```bash
+nvm use
+yarn install
+```
+
+4. Start dev server
+
+```bash
+yarn dev
+```
